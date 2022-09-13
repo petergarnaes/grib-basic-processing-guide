@@ -133,10 +133,12 @@ longitude          (y, x) float64 -6.256 -6.228 -6.2 ... 36.87 36.94 37.01
 valid_time         (step) datetime64[ns] ...
 ```
 
-This is because the HARMONIE model uses a rotated lat/lon grid, where 
-`cfgrib` has rotated all the coordinates for us. The un-rotated coordinates are in a regular grid around the equator 
-and prime meridian. When rotated to their correct location, each coordinate is rotated the exact same physical distance, 
-which means they are no longer in a lat/lon grid. For a more official explanation, please see DMI's documentation.
+This is because the HARMONIE model uses a rotated lat/lon grid. The un-rotated coordinates are in a regular grid around the equator
+and prime meridian. For a more official explanation, please see [DMI's documentation](https://confluence.govcloud.dk/display/FDAPI/About+HARMONIE).
+
+`cfgrib` has rotated all the coordinates for us, so `latitude` and `longitude` contains the real world coordinates. The
+coordinate at `ds.coords['longitude'][4][5]` contains the longitude for
+`ds.data_vars[some_var][some_step][some_height][4][5]`, same goes for latitude.
 
 ### Exporting to NetCDF
 
